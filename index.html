@@ -924,7 +924,8 @@ function generate(){
     background: ${p.titleBg} !important; color: ${p.titleColor} !important;
     border-radius: 10px 10px 0 0 !important; font-weight: bold; ${fontTitleCss}
   }
-  .jp-audio { background: ${p.playerBg} !important; border-radius: 12px !important; border: 1px solid ${p.playerBorder} !important; }
+  .jp-audio { background: ${p.playerBg} !important; border-radius: 12px !important; border: 1px solid ${p.playerBorder} !important; overflow: hidden !important; }
+  .jp-jplayer, .jp-jplayer img, .jp-video, .jp-poster { display: none !important; width: 0 !important; height: 0 !important; }
   .jp-interface { background: transparent !important; }
   .jp-progress { background: ${p.barBg} !important; border-radius: 8px !important; height: 12px !important; cursor: pointer !important; overflow: hidden !important; transition: height 0.15s ease !important; }
   .jp-progress:hover { height: 16px !important; }
