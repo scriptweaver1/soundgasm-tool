@@ -740,9 +740,9 @@ function updatePreview(p, opacity){
   else wrap.style.fontFamily='';
 
   const containerBg=p.containerBg.replace('OPACITY',opacity);
-  document.getElementById('pv-nav').style.cssText=`padding:8px 14px;display:flex;gap:12px;font-size:11px;font-weight:600;background:${p.navBg};color:${p.navLink};backdrop-filter:blur(6px);`;
+  document.getElementById('pv-nav').style.cssText=`padding:8px 14px;display:flex;gap:12px;font-size:11px;font-weight:600;background:${p.navBg};color:${p.navLink};backdrop-filter:blur(6px);justify-content:center;`;
   const cont=document.getElementById('pv-container');
-  cont.style.cssText=`margin:14px 10px;border-radius:14px;padding:16px 14px;background:${containerBg};border:1px solid ${p.containerBorder};box-shadow:0 0 30px ${p.containerShadow};color:${p.text};`;
+  cont.style.cssText=`max-width:85%;margin:14px auto;border-radius:14px;padding:16px 14px;background:${containerBg};border:1px solid ${p.containerBorder};box-shadow:0 0 30px ${p.containerShadow};color:${p.text};`;
 
   const pt=document.getElementById('pv-player-title');
   pt.style.cssText=`padding:6px 10px;border-radius:8px 8px 0 0;font-size:11px;font-weight:700;text-align:center;background:${p.titleBg};color:${p.titleColor};`;
@@ -834,16 +834,18 @@ function generate(){
     ${bgCss}
     margin: 0;
   }
-  nav { background: ${p.navBg} !important; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-  nav a { color: ${p.navLink} !important; }
+  nav { background: ${p.navBg} !important; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 10px 0 !important; text-align: center !important; }
+  nav a { color: ${p.navLink} !important; margin: 0 8px !important; }
   nav a:hover { color: #ffffff !important; }
   body > div > a { color: ${p.crumbLink} !important; font-weight: bold; }
+  body > div { max-width: 720px; margin: 0 auto; padding: 20px 24px; }
   #container, .sound-details {
     background: ${containerBg} !important;
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border: 1px solid ${p.containerBorder} !important;
     border-radius: 18px !important; color: ${p.text} !important;
     box-shadow: 0 0 30px ${p.containerShadow};
+    max-width: 100% !important; width: 100% !important;
   }
   .jp-title, .jp-title * {
     background: ${p.titleBg} !important; color: ${p.titleColor} !important;
