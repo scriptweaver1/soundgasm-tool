@@ -603,14 +603,19 @@ let socialOrder = SOCIALS_DEF.map(s=>s.key);
 function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 // Escape but preserve allowed formatting tags
 function escDesc(s){
-  // First escape everything
-  let out=escHtml(s);
-  // Then restore allowed tags
-  out=out.replace(/&lt;b&gt;/gi,'<b>').replace(/&lt;\/b&gt;/gi,'</b>');
-  out=out.replace(/&lt;i&gt;/gi,'<i>').replace(/&lt;\/i&gt;/gi,'</i>');
-  out=out.replace(/&lt;u&gt;/gi,'<u>').replace(/&lt;\/u&gt;/gi,'</u>');
-  out=out.replace(/&lt;br&gt;/gi,'<br>').replace(/&lt;br\s*\/&gt;/gi,'<br>');
-  out=out.replace(/&lt;hr&gt;/gi,'<hr>').replace(/&lt;hr\s*\/&gt;/gi,'<hr>');
+  var out = escHtml(s);
+
+  out = out.replace(/&lt;b&gt;/gi,'<b>').replace(/&lt;\/b&gt;/gi,'</b>');
+  out = out.replace(/&lt;i&gt;/gi,'<i>').replace(/&lt;\/i&gt;/gi,'</i>');
+  out = out.replace(/&lt;u&gt;/gi,'<u>').replace(/&lt;\/u&gt;/gi,'</u>');
+  out = out.replace(/&lt;br&gt;/gi,'<br>').replace(/&lt;br\s*\/&gt;/gi,'<br>');
+  out = out.replace(/&lt;hr&gt;/gi,'<hr>').replace(/&lt;hr\s*\/&gt;/gi,'<hr>');
+
+  // Convert [text](url) → hyperlink
+  out = out.replace(/\[([^\[\]]+)\]\(([^)]+)\)/g,
+    '<a href="$2" target="_blank" rel="noopener">$1</a>'
+  );
+
   return out;
 }
 function extractTags(d){ return (d.match(/\[([^\[\]]+)\]/g)||[]).map(t=>t.slice(1,-1).trim()).filter(Boolean); }
@@ -991,7 +996,7 @@ ${_sc}
 ${bannerHtml}<hr class="sg-divider">
 
 <div class="sg-description">
-  ${escDesc(desc.replace(/\s*\[[^\[\]]*\]/g,'').trim())||'Your description here\u2026'}
+  ${escDesc(desc.replace(/\s*\[([^\[\]]+)\](?!\()/g,'').trim())||'Your description here\u2026'}
 </div>
 
 ${tags.length?`<div class="sg-tags">\n${tagHtml}\n</div>\n\n`:''}${cta?`<div class="sg-cta">\n  ${escHtml(cta)}\n</div>\n\n`:''}<hr class="sg-divider">
